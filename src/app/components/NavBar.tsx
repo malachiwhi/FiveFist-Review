@@ -2,14 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 
 
+/* width={100} height={29} */
+
+
 export default function NavBar() {
     return (
         <div>
-            <nav className="flex justify-between items-center max-w-container px-8 py-5 relative z-30">
+             <nav className="flex justify-between items-center max-w-container px-8 py-5 relative z-30">
                 <Link href='/'>
-                    <Image alt="5Review" src="/5Review.svg"
-                        objectFit="contain" objectPosition="left"
-                        width={100} height={29} />
+                    <Image alt="5Review" src="/5ReviewBlack.svg" 
+                         width={100} height={29}/> 
                 </Link>
                 <ul className='hidden lg:flex h-full gap-12 text-black regular-16 items-center cursor-pointer transition-all'>
                     <li className='hover:font-bold'>
