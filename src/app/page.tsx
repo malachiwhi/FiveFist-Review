@@ -1,19 +1,13 @@
-import Image from "next/image";
-/*
-import Search from "./components/Search";
-import Review from "./components/Review"; 
-import Blog from "./components/Blog"; 
-import Compare from "./components/Compare"; 
-import Footer from "./components/Footer";
-<Search /> 
-<Review />
-<Blog />
-<Compare />
-*/
+import Head from "next/head";
+import NavBar from "./components/NavBar";
+
 export default function Home() {
   return (
     <>
-
+            <Head>
+                <link rel="icon" href="5Fist.jpg" />
+            </Head>
+      <NavBar /> 
     </> 
   );
 }

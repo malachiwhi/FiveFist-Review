@@ -3,8 +3,8 @@ const nextConfig = {
     async redirects() {
         return [
             {
-                source:"/email/page",
-                destination:"/redirectRoute", 
+                source:"/",
+                destination:"/newsletter", 
                 permanent: true, 
             }
         ]
