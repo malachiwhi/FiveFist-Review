@@ -1,24 +1,66 @@
-'use client'
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
-import { useState } from "react";
 
-
-function Page() {
+export default function Page() {
   const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<number | null>(null);
+  const [message, setMessage] = useState<string>('');
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
+  const [submitting, setSubmitting] = useState<boolean>(false);
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
- 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setButtonDisabled(true);
+    setSubmitting(true);
+    
     try {
-      const formData = new FormData(event.currentTarget)
-      const response = await fetch('/api/letter', {
-        method: 'GET',
-        body: formData,
-      })
-      const data = await response.json()
-    } catch (error) {
+      const response = await fetch('api/letter', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+        }),
+      });
+      console.log(response)
+      
+      const datas = await response.json();
+      
+      if (datas.status >= 10000) {
+        setStatus(datas.status);
+        setMessage(
+          "Error joining the newsletter. You can directly contact me at github@ebraj."
+        );
+        setTimeout(() => {
+          setMessage("");
+          setButtonDisabled(false);
+        }, 2000);
+        console.log(datas)
+        return;
+      }
 
+      setStatus(201);
+      setMessage("Thank you for subscribing to my newsletter.");
+      setTimeout(() => {
+        setMessage("");
+        setEmail("");
+        setButtonDisabled(false);
+      }, 4000);
+    } catch (error) {
+      setStatus(500);
+      setMessage(
+        "Error joining the newsletter. You can directly contact me at github@ebraj."
+      );
+      setTimeout(() => {
+        setMessage("");
+        setButtonDisabled(false);
+      }, 2000);
+    } finally {
+      setSubmitting(false);
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen">
@@ -29,26 +71,39 @@ function Page() {
             Enter your email for updates
           </h3>
         </div>
-        <form className="w-full mt-10" onSubmit={handleSubmit}>
-          <input
-            name="email"
-            type="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="block h-14 w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-gray-500"
-          />
-          <button
-            type="submit"
-            className="block mt-6 h-14 w-full px-6 py-3 leading-none font-semibold rounded-lg text-white bg-gray-900 focus:outline-none"
-          >
-            Submit
-          </button>
-        </form>
+        <div className="w-full p-5 md:p-6 space-y-5 bg-white shadow-md rounded-xl md:max-w-[600px]">
+          <form onSubmit={handleSubmit}>
+            <div className="flex items-center space-x-2">
+              <input
+                type="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-5 py-3 bg-gray-100 rounded-md outline-none grow"
+                placeholder="Enter your email"
+                autoComplete="off"
+                required
+              />
+              <button
+                className="px-5 py-3 font-bold text-gray-100 transition-all bg-gray-800 rounded-md hover:bg-gray-900 hover:scale-105 disabled:opacity-80"
+                type="submit"
+                disabled={buttonDisabled}
+              >
+                {submitting ? "Submitting" : "Submit"}
+              </button>
+            </div>
+            {message && (
+              <p
+                className={`${
+                  status !== 201 ? "text-red-500" : "text-green-500"
+                } pt-4 font-black `}
+              >
+                {message}
+              </p>
+            )}
+          </form>
+        </div>
       </div>
     </div>
   );
 }
-
-export default Page;
-
