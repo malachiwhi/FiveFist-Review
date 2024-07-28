@@ -4,7 +4,7 @@ const nextConfig = {
         return [
             {
                 source:"/",
-                destination:"/newsletter", 
+                destination:"/redirectRoute", 
                 permanent: true, 
             }
         ]

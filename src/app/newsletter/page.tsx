@@ -15,7 +15,7 @@ export default function Page() {
     setSubmitting(true);
     
     try {
-      const response = await fetch('api/letter', {
+      const response = await fetch('api/letter/', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
