@@ -22,8 +22,15 @@ export async function POST(req: Request, res: NextApiResponse) {
       email_address: email,
       status: "subscribed",
     }),
-    
   });
+
+  if(!response.ok) {
+    const errorData = await response.json(); 
+    throw new Error(`Mailchimp API error: ${errorData.detail}`);
+  }
+
+  console.log("User subscription suc");
+
   console.log(response)
   const received = await response.json();
   return NextResponse.json(received);
