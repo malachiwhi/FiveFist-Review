@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiResponse } from 'next';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request, res: NextApiResponse) {
@@ -11,6 +11,7 @@ export async function POST(req: Request, res: NextApiResponse) {
   const MailchimpAudience = process.env.MAILCHIMP_AUDIENCE_ID;
 
   const url = `https://us22.api.mailchimp.com/3.0/lists/${MailchimpAudience}/members`; 
+  
 
   const response = await fetch(url, {
     method: "POST",
