@@ -1,3 +1,4 @@
+'use client'
 import type { NextApiResponse } from 'next';
 import { NextResponse } from 'next/server';
 

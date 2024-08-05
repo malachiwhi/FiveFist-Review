@@ -31,7 +31,7 @@ export default function Page() {
       if (datas.status >= 10000) {
         setStatus(datas.status);
         setMessage(
-          "Error joining the newsletter. You can directly contact me at github@ebraj."
+          "Error joining the newsletter."
         );
         setTimeout(() => {
           setMessage("");
@@ -51,7 +51,7 @@ export default function Page() {
     } catch (error) {
       setStatus(500);
       setMessage(
-        "Error joining the newsletter. You can directly contact me at github@ebraj."
+        "Error joining the newsletter."
       );
       setTimeout(() => {
         setMessage("");
