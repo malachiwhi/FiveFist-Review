@@ -22,6 +22,7 @@ export default function Page() {
         },
         body: JSON.stringify({
           email: email,
+          status: "subscribed"
         }),
       });
       console.log(response)
