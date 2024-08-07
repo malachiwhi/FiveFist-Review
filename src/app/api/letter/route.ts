@@ -1,4 +1,3 @@
-'use client'
 import type { NextApiResponse } from 'next';
 import { NextResponse } from 'next/server';
 
@@ -25,6 +24,7 @@ export async function POST(req: Request, res: NextApiResponse) {
       status: "subscribed",
     }),
   });
+  console.log(response); 
 
   if(!response.ok) {
     const errorData = await response.json(); 
